@@ -52,7 +52,7 @@
         bookImage.classList.add('favorite');
 
         // get the book's id from its data-id
-        const clickedBookId = bookImage.getAttribute('data - id');
+        const clickedBookId = event.target.offsetParent.getAttribute('data-id');
 
         console.log('clicked book id:', clickedBookId);
 
