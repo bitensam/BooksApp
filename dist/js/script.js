@@ -42,26 +42,42 @@
     // go over each item on that list
     for (const bookImage of bookImages) {
 
-      //add a listener which, when detected, will run a function that will...
+      bookImage.addEventListener('click', function (event) {
+        event.preventDefault();
+      });
+
       bookImage.addEventListener('dblclick', function (event) {
 
         // stop the default behavior of the browser (preventDefault)
         event.preventDefault();
 
-        // adds the 'favorite' class to the clicked item
-        bookImage.classList.add('favorite');
-
         // get the book's id from its data-id
-        const clickedBookId = event.target.offsetParent.getAttribute('data-id');
+        const clickedBookId = bookImage.getAttribute('data-id');
 
-        console.log('clicked book id:', clickedBookId);
+        if (bookImage.classList.contains('favorite')) {
+          // remove the 'favorite' class from the clicked item
+          bookImage.classList.remove('favorite');
+          // find index of removing book image
+          const bookImageIndex = favoriteBooks.indexOf(clickedBookId);
 
-        // adds this ID to favoriteBooks
+          console.log('removed book image index:', bookImageIndex);
+          // remove clicked book image from array
+          favoriteBooks.splice(bookImageIndex, 1);
 
-        favoriteBooks.push(clickedBookId);
+        } else {
+          // adds this ID to favoriteBooks
+          bookImage.classList.add('favorite');
+
+          console.log('clicked book id:', clickedBookId);
+
+          favoriteBooks.push(clickedBookId);
+        }
       });
     }
+    // adds the 'favorite' class to the clicked item
+
   }
+
   render();
   initActions();
   console.log('fav books:', favoriteBooks);
